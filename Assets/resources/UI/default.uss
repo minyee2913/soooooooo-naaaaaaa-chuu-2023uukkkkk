@@ -1,0 +1,9 @@
+.tesst {
+    height: 143px;
+    width: 102px;
+    -unity-font: url('project://database/Assets/UI%20Toolkit/UnityThemes/UnityDefaultRuntimeTheme.tss?fileID=2230732570650464555&guid=cd472224cf9166c4090c0a72e494716b&type=3#NotInter-Regular');
+    color: rgb(255, 242, 0);
+    -unity-font-style: bold-and-italic;
+    font-size: 118px;
+    text-shadow: 9px 0 0 rgba(0, 0, 0, 0.56);
+}
