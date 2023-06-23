@@ -16,7 +16,7 @@ public class Enemy : MonoBehaviour
     {
         player_ = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
 
-        followMin = Random.Range(2f, 5f);
+        followMin = Random.Range(2f, 5f); 
         posDiffer = Random.Range(-6f, 6f);
     }
 
