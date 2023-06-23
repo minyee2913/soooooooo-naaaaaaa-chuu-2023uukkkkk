@@ -29,13 +29,19 @@ public class Enemy : MonoBehaviour
 
             if (Vector2.Distance(player_.transform.position, transform.position) > followMin)
             {
-                if (player_.transform.position.x + posDiffer > transform.position.x)
+                if (transform.position.x >= -10 && transform.position.x <= 10)
                 {
-                    transform.Translate(Vector2.right * speed * Time.deltaTime);
-                }
-                else if (player_.transform.position.x + posDiffer < transform.position.x)
+                    if (player_.transform.position.x + posDiffer > transform.position.x)
+                    {
+                        transform.Translate(Vector2.right * speed * Time.deltaTime);
+                    }
+                    else if (player_.transform.position.x + posDiffer < transform.position.x)
+                    {
+                        transform.Translate(Vector2.right * -speed * Time.deltaTime);
+                    }
+                } else
                 {
-                    transform.Translate(Vector2.right * -speed * Time.deltaTime);
+                    transform.position = new Vector2(Random.Range(-10, 10), transform.position.y);
                 }
             }
         }

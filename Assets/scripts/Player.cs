@@ -115,6 +115,7 @@ public class Player : MonoBehaviour
             rigid.freezeRotation = true;
             rigid.velocity = Vector2.zero;
             rigid.gravityScale = 0;
+            manager.score = 0;
 
             isAlive = false;
         }
