@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
     public List<Enemy> enemies = new();
     private Vector2 spawnPos = new(8, -3.18f);
 
-    //wow fixed!
+    //amazing
     private float spawningDelay = 0;
 
     public int score = 0;
