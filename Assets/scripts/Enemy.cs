@@ -36,13 +36,19 @@ public class Enemy : MonoBehaviour
             //if distance is over than followMin
             if (Vector2.Distance(player_.transform.position, transform.position) > followMin)
             {
-                if (player_.transform.position.x + posDiffer > transform.position.x) //if is moving to right
+                if (transform.position.x >= -10 && transform.position.x <= 10)
                 {
-                    transform.Translate(Vector2.right * speed * Time.deltaTime); //move right
-                }
-                else if (player_.transform.position.x + posDiffer < transform.position.x) //if is moving to left
+                    if (player_.transform.position.x + posDiffer > transform.position.x) //if is moving to right
+                    {
+                        transform.Translate(Vector2.right * speed * Time.deltaTime); //move right
+                    }
+                    else if (player_.transform.position.x + posDiffer < transform.position.x) //if is moving to left
+                    {
+                        transform.Translate(Vector2.right * -speed * Time.deltaTime); //move left
+                    }
+                } else
                 {
-                    transform.Translate(Vector2.right * -speed * Time.deltaTime); //move left
+                    transform.position = new Vector2(Random.Range(-10, 10), transform.position.y);
                 }
             }
         }

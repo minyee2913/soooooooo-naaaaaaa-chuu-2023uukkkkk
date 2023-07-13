@@ -9,7 +9,6 @@ public class Player : MonoBehaviour
     private float gravity = 0.2f;
 
     private float MaxVelocityX = 3;
-    private Transform model;
     private GameManager manager;
 
     private bool isJumping;
@@ -20,7 +19,6 @@ public class Player : MonoBehaviour
     void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
-        model = transform.Find("model");
         manager = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
@@ -139,6 +137,7 @@ public class Player : MonoBehaviour
             rigid.velocity = Vector2.zero;
             //set gravity to zero
             rigid.gravityScale = 0;
+            manager.score = 0;
 
             //set player dead
             isAlive = false;
