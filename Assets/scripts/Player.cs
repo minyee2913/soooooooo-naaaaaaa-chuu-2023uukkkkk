@@ -35,13 +35,16 @@ public class Player : MonoBehaviour
 
     void Jump()
     {
+        //clear velocity
         rigid.velocity = Vector2.zero;
 
+        //set gravityScale not to affect jumping force
         rigid.gravityScale = 0.4f;
 
-        isJumping = true;
-        rigid.AddForce(Vector2.up * 15, ForceMode2D.Impulse);
+        isJumping = true; //set jumping state
+        rigid.AddForce(Vector2.up * 15, ForceMode2D.Impulse); //add up force to jump
 
+        //add spin force
         rigid.AddTorque(1, ForceMode2D.Impulse);
     }
 
@@ -51,25 +54,31 @@ public class Player : MonoBehaviour
         {
             float i = Input.GetAxis("Horizontal");
 
+            //if velocity X escapes max value
             if (rigid.velocity.x > MaxVelocityX)
             {
-                rigid.velocity = new Vector2(MaxVelocityX, rigid.velocity.y);
+                rigid.velocity = new Vector2(MaxVelocityX, rigid.velocity.y);//set velocity value to max value
             }
-            else if (rigid.velocity.x < -MaxVelocityX)
+            else if (rigid.velocity.x < -MaxVelocityX) //same
             {
-                rigid.velocity = new Vector2(-MaxVelocityX, rigid.velocity.y);
+                rigid.velocity = new Vector2(-MaxVelocityX, rigid.velocity.y);//set velocity value to max value
             }
 
+            //if position Y is over than 3.5
             if (transform.position.y > 3.5f)
             {
+                //clear veloity Y
                 rigid.velocity = new Vector2(rigid.velocity.x, 0);
+                //add down force to fall
                 rigid.AddForce(Vector2.down * gravity, ForceMode2D.Impulse);
             }
 
+            //if input is right
             if (i > 0.5f)
             {
                 transform.position = new Vector2(transform.position.x + moveSpeed * Time.deltaTime, transform.position.y);
             }
+            //if input is left
             else if (i < -0.5f)
             {
                 transform.position = new Vector2(transform.position.x + -moveSpeed * Time.deltaTime, transform.position.y);
@@ -77,10 +86,13 @@ public class Player : MonoBehaviour
 
             if (isJumping)
             {
+                //count jumpCool regardless of update cycle
                 jumpCool += Time.deltaTime;
 
+                //if jump cool is end
                 if (jumpCool > 0.1f)
                 {
+                    //clear jump data
                     jumpCool = 0;
                     isJumping = false;
                     rigid.gravityScale = gravity + manager.score * 0.02f;
@@ -88,8 +100,10 @@ public class Player : MonoBehaviour
             }
             else
             {
+                //detect key is pressing (spaceBar)
                 if (Input.GetKeyDown(KeyCode.Space))
                 {
+                    //add down force to kick
                     rigid.AddForce(Vector2.down * 15, ForceMode2D.Impulse);
                 }
             }
@@ -98,24 +112,35 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        //if entered target is enemy & player is not jumping
         if (collision.transform.tag == "enemy" && !isJumping)
         {
+            //if enemy's Y pos is less than player's Y pos
             if (collision.transform.position.y + 0.25f < transform.position.y)
             {
+                //remove enemy at enemies
                 manager.enemies.Remove(collision.transform.GetComponent<Enemy>());
+                //destroy enemy's gameObject
                 Destroy(collision.transform.gameObject);
+                //jump player
                 Jump();
 
+                //add score
                 manager.score += 10;
             }
         }
 
+        //if entered target is ground
         if (collision.transform.tag == "ground")
         {
+            //freeze player's rotation
             rigid.freezeRotation = true;
+            //clear velocity
             rigid.velocity = Vector2.zero;
+            //set gravity to zero
             rigid.gravityScale = 0;
 
+            //set player dead
             isAlive = false;
         }
     }
