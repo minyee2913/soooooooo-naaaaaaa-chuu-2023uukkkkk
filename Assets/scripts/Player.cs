@@ -98,25 +98,26 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.transform.tag == "enemy" && !isJumping)
+        switch (collision.transform.tag)
         {
-            if (collision.transform.position.y + 0.25f < transform.position.y)
-            {
-                manager.enemies.Remove(collision.transform.GetComponent<Enemy>());
-                Destroy(collision.transform.gameObject);
-                Jump();
+            case "enemy":
+                if (!isJumping) {
+                    manager.enemies.Remove(collision.transform.GetComponent<Enemy>());
+                    Destroy(collision.transform.gameObject);
+                    Jump();
 
-                manager.score += 10;
-            }
+                    manager.score += 10;
+                }
+                break;
+            case "bullet":
+            case "ground":
+                rigid.freezeRotation = true;
+                rigid.velocity = Vector2.zero;
+                rigid.gravityScale = 0;
+                isAlive = !isAlive;
+                break;
+                    
         }
 
-        if (collision.transform.tag == "ground")
-        {
-            rigid.freezeRotation = true;
-            rigid.velocity = Vector2.zero;
-            rigid.gravityScale = 0;
-
-            isAlive = false;
-        }
     }
 }

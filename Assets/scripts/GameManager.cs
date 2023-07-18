@@ -5,6 +5,8 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public GameObject enemy;
+    public GameObject GunEnemy;
+
     [HideInInspector]
     public List<Enemy> enemies = new();
     private Vector2 spawnPos = new(8, -3.18f);
@@ -16,7 +18,6 @@ public class GameManager : MonoBehaviour
     public int xp = 0;
 
     private Player player;
-
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
@@ -44,7 +45,10 @@ public class GameManager : MonoBehaviour
             spawningDelay += Time.deltaTime;
             if (spawningDelay > 1)
             {
-                GameObject enem = Instantiate(enemy, new Vector2(spawnPos.x * Random.Range(-1, 1), spawnPos.y), Quaternion.identity);
+                Debug.Log(GunEnemy);
+                GameObject enem = Instantiate(GunEnemy,
+                    new Vector2(spawnPos.x * Random.Range(-1, 1), spawnPos.y),
+                    Quaternion.identity);
 
                 enemies.Add(enem.GetComponent<Enemy>());
 

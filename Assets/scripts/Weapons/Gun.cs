@@ -1,0 +1,66 @@
+
+using UnityEngine;
+using UnityEngine.UIElements;
+using Random = UnityEngine.Random;
+
+public class Gun : MonoBehaviour
+{
+    private Transform Player;
+
+    private GameObject[] bullets;
+
+
+    [SerializeField] private GameObject[] BulletTypes;
+    private GameObject bullet;
+
+    [SerializeField] private Transform muzzlePos;
+    
+    private int idx;
+    
+    [Range(1, 45)]
+    [SerializeField] private int limit;
+    private void Start() {
+        Player = GameObject.FindGameObjectWithTag("Player").gameObject.transform; // 플레이어 게임 오브젝트 get
+        
+        int type = Random.Range(1, 3); // 총알 타입 지정
+        idx = 0;
+        bullet = BulletTypes[type-1];
+        Types myType = bullet.GetComponent<Types>();
+        
+        myType.init(10, (int)(5 * type * 0.5));
+        
+        bullets = new GameObject[limit]; // 총알 배열 초기화
+        for (int i = 0; i < limit; i++) { bullets[i] = clone(myType); bullets[i].SetActive(false); } // 최적화하기 위한 총알 배열 넣기
+        
+    }
+
+    private GameObject clone(Types types) {
+        GameObject bullet = Instantiate(this.bullet);
+        bullet.GetComponent<Types>().init(types.getSpeed(), types.getTime());
+        return bullet;
+    }
+
+    private void Update() {
+        LookAt();
+    }
+
+    void LookAt() {
+        Vector2 dir =  transform.position - Player.position;
+        float angle = Mathf.Atan2(dir.x, dir.y) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.AngleAxis(-angle, Vector3.forward);
+    }
+    public void Attack()
+    {
+        idx %= limit;
+        bullets[idx].transform.position = muzzlePos.position;
+        bullets[idx].transform.rotation = transform.rotation;
+        bullets[idx].GetComponent<Types>().setTarget(new Vector2(Player.position.x, Player.position.y));
+        bullets[idx++].SetActive(true);
+
+    }
+
+    private void OnDestroy()
+    {
+        for(int i = 0; i < limit; i++) { Destroy(bullets[i]); }
+    }
+}
