@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
     public int lv = 1;
     public int xp = 0;
 
-    private Player player;
+    public Player player;
 
     public GameObject resetPanel;
 
@@ -39,7 +39,12 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < enemies.Count; i++) {
             var e = enemies[i];
 
+            Debug.Log(e);
+
             enemies.Remove(e);
+
+            //e.GetComponent<Enemy>().gun.DestroyBullet();
+
             Destroy(e.gameObject);
         }
 
@@ -68,32 +73,35 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        //if enemy count less then 12
-        if (enemies.Count < 12)
+        if(player.isAlive)
         {
-            //count spawning delay regardless of update cycle;
-            spawningDelay += Time.deltaTime;
+            if (Input.GetKeyDown(KeyCode.Q)) GamePause();
 
-            float delay = 1;
-            if (enemies.Count > 5) delay = 2.5f;
-
-            if (spawningDelay > delay)
+            //if enemy count less then 12
+            if (enemies.Count < 12)
             {
-                //copy enemy prefab to gameObject
-                GameObject enem = Instantiate(enemy, new Vector2(spawnPos.x * Random.Range(-1, 1), spawnPos.y), Quaternion.identity);
+                //count spawning delay regardless of update cycle;
+                spawningDelay += Time.deltaTime;
 
-                //add enemy at spawned enemies list
-                enemies.Add(enem.GetComponent<Enemy>());
+                float delay = 1;
+                if (enemies.Count > 5) delay = 2.5f;
 
-                spawningDelay = 0;
+                if (spawningDelay > delay)
+                {
+
+                    //copy enemy prefab to gameObject
+                    GameObject enem;
+                    //if (Random.Range(0, 100) > 50) enem = Instantiate(enemy, new Vector2(spawnPos.x * Random.Range(-1, 1), spawnPos.y), Quaternion.identity);
+                    enem = Instantiate(GunEnemy, new Vector2(spawnPos.x * Random.Range(-1, 1), spawnPos.y), Quaternion.identity);
+
+                    //add enemy at spawned enemies list
+                    enemies.Add(enem.GetComponent<Enemy>());
+
+                    spawningDelay = 0;
+                }
             }
-        }
-        if(Input.GetKeyDown(KeyCode.Q)&&player.isAlive)
-        {
-            GamePause();
-        }
-        //if player is dead
-        if (!player.isAlive)
+
+        } else
         {
             //detect key pressing (spacebar)
             if (Input.GetKeyDown(KeyCode.Space))

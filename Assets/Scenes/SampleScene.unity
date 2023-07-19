@@ -876,11 +876,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemy: {fileID: 8351574587463422785, guid: 86138d5736682084ba9bf2b24a91496f, type: 3}
-    GunEnemy: {fileID: 7017624801083283484, guid: bfc7b5f4d722c8844b225c5ee593f6f2, type: 3}s
+  GunEnemy: {fileID: 3362752927872027635, guid: 9077570f4e4badc4c91966f797725bde, type: 3}
   enemies: []
   score: 0
   lv: 1
   xp: 0
+  player: {fileID: 0}
   resetPanel: {fileID: 1176523008}
 --- !u!4 &1584357418
 Transform:
@@ -1188,7 +1189,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
-  m_SortingLayerID: -2000308211
+  m_SortingLayerID: 1570480913
   m_SortingOrder: 0
   m_TargetDisplay: 0
 --- !u!224 &1899557766
