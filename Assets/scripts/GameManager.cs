@@ -4,13 +4,20 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    //enemy object
     public GameObject enemy;
     public GameObject GunEnemy;
 
+
+
+    //spawned enemies
     [HideInInspector]
     public List<Enemy> enemies = new();
+
+    //player spawn pos
     private Vector2 spawnPos = new(8, -3.18f);
 
+    //enemy spawning delay
     private float spawningDelay = 0;
 
     public int score = 0;
@@ -27,6 +34,7 @@ public class GameManager : MonoBehaviour
 
     public void GameStart()
     {
+        //remove all spawned enemies
         for (int i = 0; i < enemies.Count; i++) {
             var e = enemies[i];
 
@@ -34,33 +42,37 @@ public class GameManager : MonoBehaviour
             Destroy(e.gameObject);
         }
 
+        //move player to spawn pos
         player.transform.position = new Vector2(-5, -3.3f);
         player._Start();
     }
 
     private void Update()
     {
+        //if enemy count less then 4
         if (enemies.Count < 4)
         {
+            //count spawning delay regardless of update cycle;
             spawningDelay += Time.deltaTime;
-            if (spawningDelay > 1)
-            {
+            if (spawningDelay > 1) {
                 Debug.Log(GunEnemy);
-                GameObject enem = Instantiate(GunEnemy,
-                    new Vector2(spawnPos.x * Random.Range(-1, 1), spawnPos.y),
-                    Quaternion.identity);
+                //copy enemy prefab to gameObject
+                GameObject enem = Instantiate(enemy, new Vector2(spawnPos.x * Random.Range(-1, 1), spawnPos.y), Quaternion.identity);
 
+                //add enemy at spawned enemies list
                 enemies.Add(enem.GetComponent<Enemy>());
 
                 spawningDelay = 0;
             }
         }
 
+        //if player is dead
         if (!player.isAlive)
         {
+            //detect key pressing (spacebar)
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                GameStart();
+                GameStart(); //start game
             }
         }
     }
