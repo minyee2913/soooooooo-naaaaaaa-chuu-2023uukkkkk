@@ -19,7 +19,7 @@ public class Enemy : MonoBehaviour
     //following delay
     private float followCool = 0;
 
-    [SerializeField] private Gun gun;
+    [SerializeField] public Gun gun;
 
     private float shootDelay;
     private float shootTimer;
@@ -37,6 +37,8 @@ public class Enemy : MonoBehaviour
 
     void Update()
     {
+        if (!player_.isAlive) return;
+
         //if followCool is less than 1.5s
         if (followCool < 1.5f)
         {
@@ -70,7 +72,7 @@ public class Enemy : MonoBehaviour
     {
         if (shootDelay > (shootTimer += Time.deltaTime)) return;
         shootTimer = 0;
-        gun.Attack();   
+        if (gun != null) gun.Attack();   
     }
 
     private void OnDestroy() {

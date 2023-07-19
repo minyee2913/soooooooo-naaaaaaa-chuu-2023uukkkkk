@@ -11,7 +11,7 @@ public class Gun : MonoBehaviour
 
 
     [SerializeField] private GameObject[] BulletTypes;
-    private GameObject bullet;
+    public GameObject bullet;
 
     [SerializeField] private Transform muzzlePos;
     
@@ -36,6 +36,8 @@ public class Gun : MonoBehaviour
 
     private GameObject clone(Types types) {
         GameObject bullet = Instantiate(this.bullet);
+        bullet.transform.localScale = new Vector2(0.5f, 0.5f);
+
         bullet.GetComponent<Types>().init(types.getSpeed(), types.getTime());
         return bullet;
     }
@@ -59,8 +61,15 @@ public class Gun : MonoBehaviour
 
     }
 
+/*    public void DestroyBullet()
+    {
+        Destroy(bullet);
+    }*/
+
     private void OnDestroy()
     {
-        for(int i = 0; i < limit; i++) { Destroy(bullets[i]); }
+        for(int i = 0; i < bullets.Length; i++) {
+            Destroy(bullets[i]);
+        }
     }
 }
