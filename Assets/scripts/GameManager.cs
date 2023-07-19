@@ -8,8 +8,6 @@ public class GameManager : MonoBehaviour
     public GameObject enemy;
     public GameObject GunEnemy;
 
-
-
     //spawned enemies
     [HideInInspector]
     public List<Enemy> enemies = new();
@@ -25,6 +23,9 @@ public class GameManager : MonoBehaviour
     public int xp = 0;
 
     private Player player;
+
+    public GameObject resetPanel;
+
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
@@ -47,6 +48,24 @@ public class GameManager : MonoBehaviour
         player._Start();
     }
 
+    public void GamePause()
+    {
+        resetPanel.SetActive(true);
+        Time.timeScale=0;
+    }
+    public void Cancel()
+    {
+        resetPanel.SetActive(false);
+        Time.timeScale=1;
+    }
+    public void ResetAccount()
+    {
+        Cancel();
+        lv=1;
+        score=0;
+        GameStart();
+    }
+
     private void Update()
     {
         //if enemy count less then 4
@@ -54,8 +73,8 @@ public class GameManager : MonoBehaviour
         {
             //count spawning delay regardless of update cycle;
             spawningDelay += Time.deltaTime;
-            if (spawningDelay > 1) {
-                Debug.Log(GunEnemy);
+            if (spawningDelay > 1)
+            {
                 //copy enemy prefab to gameObject
                 GameObject enem = Instantiate(enemy, new Vector2(spawnPos.x * Random.Range(-1, 1), spawnPos.y), Quaternion.identity);
 
@@ -65,7 +84,10 @@ public class GameManager : MonoBehaviour
                 spawningDelay = 0;
             }
         }
-
+        if(Input.GetKeyDown(KeyCode.Q)&&player.isAlive)
+        {
+            GamePause();
+        }
         //if player is dead
         if (!player.isAlive)
         {

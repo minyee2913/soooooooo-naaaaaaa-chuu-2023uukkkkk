@@ -24,6 +24,10 @@ public class Player : MonoBehaviour
 
     public void _Start()
     {
+         //clear velocity
+        rigid.velocity = Vector2.zero;
+        //set gravity to zero
+        rigid.gravityScale = 0;
         rigid.AddForce(Vector2.right * 5, ForceMode2D.Impulse);
         Jump();
 
@@ -50,67 +54,71 @@ public class Player : MonoBehaviour
     {
         if (isAlive)
         {
-            float i = Input.GetAxis("Horizontal");
+                float i = Input.GetAxis("Horizontal");
 
-            //if velocity X escapes max value
-            if (rigid.velocity.x > MaxVelocityX)
-            {
-                rigid.velocity = new Vector2(MaxVelocityX, rigid.velocity.y);//set velocity value to max value
-            }
-            else if (rigid.velocity.x < -MaxVelocityX) //same
-            {
-                rigid.velocity = new Vector2(-MaxVelocityX, rigid.velocity.y);//set velocity value to max value
-            }
-
-            //if position Y is over than 3.5
-            if (transform.position.y > 3.5f)
-            {
-                //clear veloity Y
-                rigid.velocity = new Vector2(rigid.velocity.x, 0);
-                //add down force to fall
-                rigid.AddForce(Vector2.down * gravity, ForceMode2D.Impulse);
-            }
-
-            //if input is right
-            if (i > 0.5f)
-            {
-                transform.position = new Vector2(transform.position.x + moveSpeed * Time.deltaTime, transform.position.y);
-            }
-            //if input is left
-            else if (i < -0.5f)
-            {
-                transform.position = new Vector2(transform.position.x + -moveSpeed * Time.deltaTime, transform.position.y);
-            }
-
-            if (isJumping)
-            {
-                //count jumpCool regardless of update cycle
-                jumpCool += Time.deltaTime;
-
-                //if jump cool is end
-                if (jumpCool > 0.1f)
+                //if velocity X escapes max value
+                if (rigid.velocity.x > MaxVelocityX)
                 {
-                    //clear jump data
-                    jumpCool = 0;
-                    isJumping = false;
-                    rigid.gravityScale = gravity + manager.score * 0.02f;
+                    rigid.velocity = new Vector2(MaxVelocityX, rigid.velocity.y);//set velocity value to max value
+                }
+                else if (rigid.velocity.x < -MaxVelocityX) //same
+                {
+                    rigid.velocity = new Vector2(-MaxVelocityX, rigid.velocity.y);//set velocity value to max value
+                }
+
+                //if position Y is over than 3.5
+                if (transform.position.y > 3.5f)
+                {
+                    //clear veloity Y
+                    rigid.velocity = new Vector2(rigid.velocity.x, 0);
+                    //add down force to fall
+                    rigid.AddForce(Vector2.down * gravity, ForceMode2D.Impulse);
+                }
+
+                //if input is right
+                if (i > 0.5f)
+                {
+                    transform.position = new Vector2(transform.position.x + moveSpeed * Time.deltaTime, transform.position.y);
+                }
+                //if input is left
+                else if (i < -0.5f)
+                {
+                    transform.position = new Vector2(transform.position.x + -moveSpeed * Time.deltaTime, transform.position.y);
+                }
+
+                if (isJumping)
+                {
+                    //count jumpCool regardless of update cycle
+                    jumpCool += Time.deltaTime;
+
+                    //if jump cool is end
+                    if (jumpCool > 0.1f)
+                    {
+                        //clear jump data
+                        jumpCool = 0;
+                        isJumping = false;
+                        rigid.gravityScale = gravity + manager.score * 0.002f;
+                    }
+                }
+                else
+                {
+                    //detect key is pressing (spaceBar)
+                    if (Input.GetKeyDown(KeyCode.Space))
+                    {
+                        //add down force to kick
+                        rigid.AddForce(Vector2.down * 15, ForceMode2D.Impulse);
+                    }
                 }
             }
             else
             {
-                //detect key is pressing (spaceBar)
-                if (Input.GetKeyDown(KeyCode.Space))
-                {
-                    //add down force to kick
-                    rigid.AddForce(Vector2.down * 15, ForceMode2D.Impulse);
-                }
+                rigid.gravityScale = 0;
             }
-        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        switch (collision.transform.tag)
+                switch (collision.transform.tag)
         {
             case "enemy":
                 if (!isJumping) {
@@ -130,8 +138,7 @@ public class Player : MonoBehaviour
                 break;
                     
         }
-
-
+        
         //if entered target is enemy & player is not jumping
         if (collision.transform.tag == "enemy" && !isJumping)
         {
