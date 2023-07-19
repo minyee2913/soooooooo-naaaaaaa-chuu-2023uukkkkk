@@ -68,12 +68,16 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        //if enemy count less then 4
-        if (enemies.Count < 4)
+        //if enemy count less then 12
+        if (enemies.Count < 12)
         {
             //count spawning delay regardless of update cycle;
             spawningDelay += Time.deltaTime;
-            if (spawningDelay > 1)
+
+            float delay = 1;
+            if (enemies.Count > 5) delay = 2.5f;
+
+            if (spawningDelay > delay)
             {
                 //copy enemy prefab to gameObject
                 GameObject enem = Instantiate(enemy, new Vector2(spawnPos.x * Random.Range(-1, 1), spawnPos.y), Quaternion.identity);
