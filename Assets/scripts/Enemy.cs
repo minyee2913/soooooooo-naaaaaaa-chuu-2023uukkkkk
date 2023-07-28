@@ -46,17 +46,19 @@ public class Enemy : MonoBehaviour
             followCool += Time.deltaTime;
 
             //if distance is over than followMin
-            if (Vector2.Distance(player_.transform.position, transform.position) > followMin)
+            if (Vector2.Distance(new Vector3(player_.transform.position.x, transform.position.y, player_.transform.position.z), transform.position) > followMin)
             {
                 if (transform.position.x >= -10 && transform.position.x <= 10)
                 {
                     if (player_.transform.position.x + posDiffer > transform.position.x) //if is moving to right
                     {
                         transform.Translate(Vector2.right * speed * Time.deltaTime); //move right
+                        transform.localScale = new Vector3(-1, 1, 1);
                     }
                     else if (player_.transform.position.x + posDiffer < transform.position.x) //if is moving to left
                     {
                         transform.Translate(Vector2.right * -speed * Time.deltaTime); //move left
+                        transform.localScale = new Vector3(1, 1, 1);
                     }
                 } else
                 {

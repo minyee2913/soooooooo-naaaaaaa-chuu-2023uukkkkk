@@ -16,6 +16,8 @@ public class Gun : MonoBehaviour
     [SerializeField] private Transform muzzlePos;
     
     private int idx;
+
+    public Quaternion _angle;
     
     [Range(1, 45)]
     [SerializeField] private int limit;
@@ -36,7 +38,7 @@ public class Gun : MonoBehaviour
 
     private GameObject clone(Types types) {
         GameObject bullet = Instantiate(this.bullet);
-        bullet.transform.localScale = new Vector2(0.5f, 0.5f);
+        bullet.transform.localScale = new Vector2(0.4f, 0.2f);
 
         bullet.GetComponent<Types>().init(types.getSpeed(), types.getTime());
         return bullet;
@@ -49,13 +51,13 @@ public class Gun : MonoBehaviour
     void LookAt() {
         Vector2 dir =  transform.position - Player.position;
         float angle = Mathf.Atan2(dir.x, dir.y) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.AngleAxis(-angle, Vector3.forward);
+        _angle =  Quaternion.AngleAxis(-angle, Vector3.forward);
     }
     public void Attack()
     {
         idx %= limit;
         bullets[idx].transform.position = muzzlePos.position;
-        bullets[idx].transform.rotation = transform.rotation;
+        bullets[idx].transform.rotation = _angle;
         bullets[idx].GetComponent<Types>().setTarget(new Vector2(Player.position.x, Player.position.y));
         bullets[idx++].SetActive(true);
 

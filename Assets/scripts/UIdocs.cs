@@ -17,7 +17,7 @@ public class UIdocs : MonoBehaviour
 
     private void FixedUpdate()
     {
-        root.Q<Label>("point").text = "Á¡¼ö: " + manager.score;
+        root.Q<Label>("point").text = manager.score + " score";
         root.Q<Label>("lvscore").text = "." + manager.lv;
     }
 }
