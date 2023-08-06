@@ -26,8 +26,8 @@ public class Enemy : MonoBehaviour
 
     private void Awake()
     {
-        
-        player_ = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+
+        player_ = GameManager.player;
             //randomize followMin & posDiffer per enemy
         followMin = Random.Range(2f, 5f);
         posDiffer = Random.Range(-6f, 6f);
@@ -37,44 +37,48 @@ public class Enemy : MonoBehaviour
 
     void Update()
     {
-        if (!player_.isAlive) return;
-
-        //if followCool is less than 1.5s
-        if (followCool < 1.5f)
+        if (player_.isAlive)
         {
-            //count followCount regardless of update cycle;
-            followCool += Time.deltaTime;
-
-            //if distance is over than followMin
-            if (Vector2.Distance(new Vector3(player_.transform.position.x, transform.position.y, player_.transform.position.z), transform.position) > followMin)
+            //if followCool is less than 1.5s
+            if (followCool < 1.5f)
             {
-                if (transform.position.x >= -10 && transform.position.x <= 10)
+                //count followCount regardless of update cycle;
+                followCool += Time.deltaTime;
+
+                //if distance is over than followMin
+                if (Vector2.Distance(
+                        new Vector3(player_.transform.position.x, transform.position.y, player_.transform.position.z),
+                        transform.position) > followMin)
                 {
-                    if (player_.transform.position.x + posDiffer > transform.position.x) //if is moving to right
-                    {
-                        transform.Translate(Vector2.right * speed * Time.deltaTime); //move right
-                        transform.localScale = new Vector3(-1, 1, 1);
+                    if (transform.position.x >= -10 && transform.position.x <= 10) {
+                        if (player_.transform.position.x + posDiffer > transform.position.x) //if is moving to right
+                        {
+                            transform.Translate(Vector2.right * speed * Time.deltaTime); //move right
+                            transform.localScale = new Vector3(-1, 1, 1);
+                        }
+                        else if (player_.transform.position.x + posDiffer < transform.position.x) //if is moving to left
+                        {
+                            transform.Translate(Vector2.right * -speed * Time.deltaTime); //move left
+                            transform.localScale = new Vector3(1, 1, 1);
+                        }
                     }
-                    else if (player_.transform.position.x + posDiffer < transform.position.x) //if is moving to left
+                    else
                     {
-                        transform.Translate(Vector2.right * -speed * Time.deltaTime); //move left
-                        transform.localScale = new Vector3(1, 1, 1);
+                        transform.position = new Vector2(Random.Range(-10, 10), transform.position.y);
                     }
-                } else
-                {
-                    transform.position = new Vector2(Random.Range(-10, 10), transform.position.y);
                 }
             }
+
+            Shoot();
         }
-        
-        Shoot();
     }
 
     void Shoot()
     {
-        if (shootDelay > (shootTimer += Time.deltaTime)) return;
-        shootTimer = 0;
-        if (gun != null) gun.Attack();   
+        if (shootDelay <= (shootTimer += Time.deltaTime)) {
+            shootTimer = 0;
+            if (gun != null) gun.Attack();
+        }
     }
 
     private void OnDestroy() {

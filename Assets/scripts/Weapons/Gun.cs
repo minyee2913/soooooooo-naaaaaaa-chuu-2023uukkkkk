@@ -22,7 +22,8 @@ public class Gun : MonoBehaviour
     [Range(1, 45)]
     [SerializeField] private int limit;
     private void Start() {
-        Player = GameObject.FindGameObjectWithTag("Player").gameObject.transform; // 플레이어 게임 오브젝트 get
+        // Player = GameObject.FindGameObjectWithTag("Player").gameObject.transform; // 플레이어 게임 오브젝트 get
+        Player = GameManager.player.gameObject.transform;
         
         int type = Random.Range(1, 3); // 총알 타입 지정
         idx = 0;
@@ -39,7 +40,6 @@ public class Gun : MonoBehaviour
     private GameObject clone(Types types) {
         GameObject bullet = Instantiate(this.bullet);
         bullet.transform.localScale = new Vector2(0.4f, 0.2f);
-
         bullet.GetComponent<Types>().init(types.getSpeed(), types.getTime());
         return bullet;
     }
@@ -51,7 +51,9 @@ public class Gun : MonoBehaviour
     void LookAt() {
         Vector2 dir =  transform.position - Player.position;
         float angle = Mathf.Atan2(dir.x, dir.y) * Mathf.Rad2Deg;
-        _angle =  Quaternion.AngleAxis(-angle, Vector3.forward);
+        // transform.rotation = Quaternion.AngleAxis(-angle, Vector3.forward);
+        _angle =  Quaternion.AngleAxis(-angle , Vector3.forward);
+        // transform.rotation = _angle;
     }
     public void Attack()
     {

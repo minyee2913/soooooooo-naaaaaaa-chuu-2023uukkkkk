@@ -110,10 +110,7 @@ public class Player : MonoBehaviour
                     }
                 }
             }
-            else
-            {
-                rigid.gravityScale = 0;
-            }
+        else { rigid.gravityScale = 0; }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

@@ -1,6 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviour
 {
@@ -8,6 +11,7 @@ public class GameManager : MonoBehaviour
     public GameObject enemy;
     public GameObject GunEnemy;
 
+    
     //spawned enemies
     [HideInInspector]
     public List<Enemy> enemies = new();
@@ -22,14 +26,17 @@ public class GameManager : MonoBehaviour
     public int lv = 1;
     public int xp = 0;
 
-    public Player player;
+    static public Player player;
 
     public GameObject resetPanel;
 
-    private void Start()
+    private void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+    }
 
+    private void Start()
+    {
         GameStart();
     }
 
@@ -100,6 +107,8 @@ public class GameManager : MonoBehaviour
                     spawningDelay = 0;
                 }
             }
+
+            
 
         } else
         {
