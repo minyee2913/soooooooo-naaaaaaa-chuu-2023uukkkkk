@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
     public float moveSpeed;
     private Rigidbody2D rigid;
-    private float gravity = 0.05f;
+    private float gravity = 0.1f;
 
     private float MaxVelocityX = 3;
     private GameManager manager;
@@ -17,9 +18,14 @@ public class Player : MonoBehaviour
     public bool isAlive;
 
     public bool slowMotion = false;
+    public bool slowSoundOut = false;
 
     public ParticleSystem crashParticle1;
     public ParticleSystem crashParticle2;
+
+    public Slider slowTimeBar;
+
+    float slowTime = 0;
 
     void Awake()
     {
@@ -83,20 +89,30 @@ public class Player : MonoBehaviour
 
                 transform.position = new Vector2(transform.position.x, 2.4f);
 
+                manager.soundManager.Play("effect.slowIn");
+                slowTime = 0;
                 slowMotion = true;
                 manager.vcam.SlowOn();
+                slowTimeBar.gameObject.SetActive(true);
             }
 
             //if input is right
+
+            float appliedSpeed = moveSpeed;
+            if (slowMotion) appliedSpeed += 8;
+
             if (i > 0f)
             {
-                transform.position = new Vector2(transform.position.x + moveSpeed * Time.deltaTime, transform.position.y);
+                transform.position = new Vector2(transform.position.x + appliedSpeed * Time.deltaTime, transform.position.y);
             }
             //if input is left
             else if (i < 0f)
             {
-                transform.position = new Vector2(transform.position.x + -moveSpeed * Time.deltaTime, transform.position.y);
+                transform.position = new Vector2(transform.position.x + -appliedSpeed * Time.deltaTime, transform.position.y);
             }
+
+            if (transform.position.x < -7) transform.position = new Vector2(-7, transform.position.y);
+            else if (transform.position.x > 8) transform.position = new Vector2(8, transform.position.y);
 
             if (isJumping)
             {
@@ -120,21 +136,50 @@ public class Player : MonoBehaviour
                     //add down force to kick
                     rigid.AddForce(Vector2.down * 15, ForceMode2D.Impulse);
 
-                    slowMotion = false;
-                    manager.vcam.SlowOut();
+                    if (slowMotion)
+                    {
+                        manager.soundManager.Play("effect.slowOut");
+                        if (manager.soundManager._tracks[2].time < 1.3f)
+                            manager.soundManager._tracks[2].time = 1.3f;
+
+                        slowMotion = false;
+                        manager.vcam.SlowOut();
+                        slowTimeBar.gameObject.SetActive(false);
+                    }
                 }
             }
 
             if (slowMotion)
             {
                 Time.timeScale = 0.3f;
+
+                slowTime += Time.unscaledDeltaTime;
+
+                if (slowTime < 0.5f && slowSoundOut) slowSoundOut = false;
+
+                if (slowTime >= 1.2f && !slowSoundOut)
+                {
+                    manager.soundManager.Play("effect.slowOut");
+                    manager.soundManager._tracks[2].time = 0f;
+                    slowSoundOut = true;
+                }
+
+                if (slowTime > 3f)
+                {
+                    slowMotion = false;
+                    manager.vcam.SlowOut();
+                    slowTimeBar.gameObject.SetActive(false);
+                }
             } else
             {
                 Time.timeScale = 1;
             }
+
+            slowTimeBar.value = 1 - (slowTime / 3f);
         }
         else {
             rigid.gravityScale = 0;
+            rigid.velocity = Vector2.zero;
         }
     }
 
@@ -144,14 +189,19 @@ public class Player : MonoBehaviour
         {
             case "enemy":
                 if (!isJumping) {
-                    manager.enemies.Remove(collision.transform.GetComponent<Enemy>());
-                    Destroy(collision.transform.gameObject);
+                    var enemy = collision.transform.GetComponent<Enemy>();
+                    manager.enemies.Remove(enemy);
+
+                    enemy.Kicked();
+                    Destroy(collision.transform.gameObject, 0.3f);
 
                     var particle1 = Instantiate(crashParticle1, transform.position + new Vector3(0, -0.5f), Quaternion.identity);
                     Destroy(particle1.gameObject, 1);
 
                     var particle2 = Instantiate(crashParticle2, transform.position + new Vector3(0, -0.5f), Quaternion.identity);
                     Destroy(particle2.gameObject, 1);
+
+                    manager.soundManager.Play("effect.kick");
 
                     Jump();
 

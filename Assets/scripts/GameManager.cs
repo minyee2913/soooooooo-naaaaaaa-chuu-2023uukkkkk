@@ -17,10 +17,12 @@ public class GameManager : MonoBehaviour
     public List<Enemy> enemies = new();
 
     //player spawn pos
-    private Vector2 spawnPos = new(8, -3.18f);
+    private float spawnY = -3.18f;
 
     //enemy spawning delay
     private float spawningDelay = 0;
+
+    public SoundManager soundManager;
 
     public int score = 0;
     public int lv = 1;
@@ -65,6 +67,11 @@ public class GameManager : MonoBehaviour
         //move player to spawn pos
         player.transform.position = new Vector2(-5, -2.5f);
         player._Start();
+
+        lv = 1;
+        maxXp = 20;
+        xp = 1;
+        score = 0;
     }
 
     public void GamePause()
@@ -83,7 +90,6 @@ public class GameManager : MonoBehaviour
         lv = 1;
         maxXp = 20;
         xp = 1;
-        score = 0;
         GameStart();
     }
 
@@ -99,8 +105,8 @@ public class GameManager : MonoBehaviour
                 //count spawning delay regardless of update cycle;
                 spawningDelay += Time.deltaTime;
 
-                float delay = 1;
-                if (enemies.Count > 5) delay = 2.5f;
+                float delay = 0.7f;
+                if (enemies.Count > 5) delay = 1.5f;
 
                 if (spawningDelay > delay)
                 {
@@ -108,7 +114,7 @@ public class GameManager : MonoBehaviour
                     //copy enemy prefab to gameObject
                     GameObject enem;
                     //if (Random.Range(0, 100) > 50) enem = Instantiate(enemy, new Vector2(spawnPos.x * Random.Range(-1, 1), spawnPos.y), Quaternion.identity);
-                    enem = Instantiate(GunEnemy, new Vector2(spawnPos.x * Random.Range(-1, 1), spawnPos.y), Quaternion.identity);
+                    enem = Instantiate(GunEnemy, new Vector2(Random.Range(-7, 8), spawnY), Quaternion.identity);
 
                     //add enemy at spawned enemies list
                     enemies.Add(enem.GetComponent<Enemy>());
@@ -122,6 +128,8 @@ public class GameManager : MonoBehaviour
                 xp = 0;
                 lv++;
                 maxXp = lv * 20;
+
+                soundManager.Play("effect.lvup");
 
                 var particle = Instantiate(lvUpParticle, player.transform.position, Quaternion.identity);
                 particle.transform.SetParent(player.transform, false);

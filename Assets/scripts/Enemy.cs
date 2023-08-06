@@ -20,6 +20,8 @@ public class Enemy : MonoBehaviour
 
     private float Right, Left;
 
+    public bool IsAlive;
+
     private void Awake() {
         
         player_ = GameManager.player;
@@ -36,26 +38,37 @@ public class Enemy : MonoBehaviour
         
         shootDelay = Random.Range(1, 2.5f);
         shootTimer = 0;
+
+        IsAlive = true;
     }
     
 
     void Update()
     {
-        if (player_.isAlive) {
+        if (player_.isAlive && IsAlive) {
             // dir x가 0보다 크다면 Right인 거임
             if (dir.x > 0) {
                 if (transform.position.x + dir.x * speed * Time.deltaTime < Right) {
                     transform.Translate((Vector3) (dir) * speed * Time.deltaTime); //move right
                     transform.localScale = new Vector3(-1, 1, 1); 
                 }
-                else {transform.localScale = new Vector3(1, 1, 1); }
+                else {
+                    transform.localScale = new Vector3(1, 1, 1);
+                }
+
             }else if (dir.x < 0) {
                 if (transform.position.x + dir.x * speed * Time.deltaTime > Left) {
                     transform.Translate((Vector3) (dir) * speed * Time.deltaTime); //move left
                     transform.localScale = new Vector3(1, 1, 1);
                 }
-                else { transform.localScale = new Vector3(-1, 1, 1); }
+                else {
+                    transform.localScale = new Vector3(-1, 1, 1);
+                }
+
             }
+
+            if (transform.position.x < -6) transform.position = new Vector2(-6, transform.position.y);
+            else if (transform.position.x > 7) transform.position = new Vector2(7, transform.position.y);
 
             moveUpdate();
             Shoot();
@@ -63,6 +76,23 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    public void Kicked()
+    {
+        IsAlive = false;
+
+        StartCoroutine(_kicked());
+    }
+
+    IEnumerator _kicked()
+    {
+        Vector3 rot = transform.rotation.eulerAngles;
+        for (int i = 0; i < 10; i++)
+        {
+            transform.localScale = new Vector2(1 + (i * 0.02f), 1 - (i * 0.04f));
+            transform.localRotation = Quaternion.Euler(new Vector3(rot.x, rot.y, -2.5f * i));
+            yield return new WaitForSeconds(0.01f);
+        }
+    }
 
     void timerUpdate()
     {
