@@ -7,3 +7,91 @@
     font-size: 118px;
     text-shadow: 9px 0 0 rgba(0, 0, 0, 0.56);
 }
+
+.top_hud_out {
+    background-image: url('project://database/Assets/resources/textures/top_hud.png?fileID=2800000&guid=1419d147dd129384f9a81e7bf52bf31e&type=3#top_hud');
+    width: 905px;
+    height: 419px;
+    -unity-background-image-tint-color: rgb(215, 230, 255);
+    position: absolute;
+    top: -710px;
+    left: 2020px;
+    rotate: -330deg;
+    transition-duration: 0.3s;
+}
+
+.top_hud_in {
+    translate: -789px 599px;
+    transition-duration: 0.3s;
+}
+
+.blindTop_out {
+    top: -50%;
+    height: 50%;
+    width: 100%;
+    background-color: rgba(14, 14, 14, 255);
+    transition-duration: 0.1s;
+    position: absolute;
+}
+
+.blindTop_in {
+    transition-duration: 0.2s;
+    top: 0;
+    position: absolute;
+}
+
+.blindBottom_out {
+    top: 100%;
+    height: 50%;
+    width: 100%;
+    background-color: rgb(14, 14, 14);
+    transition-duration: 0.2s;
+}
+
+.blindBottom_in {
+    transition-duration: 0.2s;
+    top: 50%;
+}
+
+.fadePanel_out {
+    position: absolute;
+    opacity: 0;
+    transition-duration: 1.5s;
+}
+
+.fadePanel_in {
+    opacity: 1;
+    transition-duration: 1.5s;
+}
+
+.startButton {
+    position: absolute;
+    height: 558px;
+    width: 942px;
+    top: 500px;
+    left: 895px;
+    background-image: url('project://database/Assets/resources/textures/reset_button.png?fileID=2800000&guid=3737276eda54cde48983fb75a494523b&type=3#reset_button');
+    background-color: rgba(88, 88, 88, 0);
+    border-left-width: 0;
+    border-right-width: 0;
+    border-top-width: 0;
+    border-bottom-width: 0;
+    rotate: 5deg;
+    -unity-background-image-tint-color: rgb(19, 19, 19);
+    -unity-font-style: bold;
+    font-size: 105px;
+    -unity-font-definition: initial;
+    -unity-font: url('project://database/Assets/resources/dpcomic.ttf?fileID=12800000&guid=4af21f81590af7d4ab8f40add6519a46&type=3#dpcomic');
+    color: rgba(192, 192, 192, 255);
+}
+
+.startButton:hover {
+    scale: 1.03 1.03;
+    -unity-background-image-tint-color: rgba(65, 65, 65, 255);
+    color: rgba(255, 255, 255, 255);
+}
+
+.startButton:active {
+    color: rgba(147, 147, 147, 255);
+    -unity-background-image-tint-color: rgba(26, 26, 26, 255);
+}

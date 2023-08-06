@@ -7,6 +7,7 @@ using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviour
 {
+
     //enemy object
     public GameObject enemy;
     public GameObject GunEnemy;
@@ -24,6 +25,7 @@ public class GameManager : MonoBehaviour
 
     public SoundManager soundManager;
 
+    public int lastScore = 0;
     public int score = 0;
     public int lv = 1;
     public int xp = 0;
@@ -40,17 +42,22 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
-        uidocs = GameObject.Find("UI").GetComponent<UIdocs>();
+        uidocs = GetComponent<UIdocs>();
         vcam = GameObject.Find("vcam").GetComponent<Vcam>();
     }
 
     private void Start()
     {
-        GameStart();
+        player.gameObject.SetActive(false);
+        player.isAlive = false;
+
+        uidocs.ShowTitle();
     }
 
     public void GameStart()
     {
+        player.gameObject.SetActive(true);
+
         //remove all spawned enemies
         for (int i = 0; i < enemies.Count; i++) {
             var e = enemies[i];
@@ -72,6 +79,8 @@ public class GameManager : MonoBehaviour
         maxXp = 20;
         xp = 1;
         score = 0;
+
+        spawningDelay = 0;
     }
 
     public void GamePause()
@@ -95,7 +104,7 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if(player.isAlive)
+        if (player.isAlive)
         {
             if (Input.GetKeyDown(KeyCode.Q)) GamePause();
 
@@ -143,13 +152,6 @@ public class GameManager : MonoBehaviour
 
             
 
-        } else
-        {
-            //detect key pressing (spacebar)
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                GameStart(); //start game
-            }
         }
     }
 }

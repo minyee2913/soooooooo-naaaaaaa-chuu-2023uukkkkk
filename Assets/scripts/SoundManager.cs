@@ -37,7 +37,7 @@ public class SoundManager : MonoBehaviour
 
     public IEnumerator OnPlay(Sound sound)
     {
-        if (sound.track == 4)
+        if (sound.track == 5)
         {
             if (PlayingMusic != null && PlayingMusic == sound.id) yield break;
             else PlayingMusic = sound.id;

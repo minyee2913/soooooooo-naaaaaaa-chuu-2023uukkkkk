@@ -219,6 +219,11 @@ public class Player : MonoBehaviour
 
                 isAlive = false;
 
+                manager.uidocs.ShowTitle();
+
+                manager.lastScore = manager.score;
+                if (manager.score > PlayerPrefs.GetInt("bestScore")) PlayerPrefs.SetInt("bestScore", manager.score);
+
                 break;
                     
         }
