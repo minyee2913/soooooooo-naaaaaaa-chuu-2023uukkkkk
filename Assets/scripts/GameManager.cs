@@ -46,7 +46,7 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < enemies.Count; i++) {
             var e = enemies[i];
 
-            Debug.Log(e);
+            // Debug.Log(e);
 
             enemies.Remove(e);
 
@@ -85,7 +85,7 @@ public class GameManager : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Q)) GamePause();
 
             //if enemy count less then 12
-            if (enemies.Count < 12)
+            if (enemies.Count < 1)
             {
                 //count spawning delay regardless of update cycle;
                 spawningDelay += Time.deltaTime;
