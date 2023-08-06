@@ -82,7 +82,5 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    private void OnDestroy() {
-        Destroy(gun);
-    }
+    private void OnDestroy() { Destroy(gun); }
 }
