@@ -1999,6 +1999,13 @@ MonoBehaviour:
     pitch: 1
     track: 1
     loop: 0
+  - id: effect.death
+    audioIn: {fileID: 0}
+    audio: {fileID: 8300000, guid: 5d541cb0ef2cf9941b6d131c2e75e01f, type: 3}
+    volume: 0.5
+    pitch: 1
+    track: 2
+    loop: 0
   _tracks:
   - {fileID: 1155493280}
   - {fileID: 350096104}

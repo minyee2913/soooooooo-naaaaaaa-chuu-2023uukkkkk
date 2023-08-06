@@ -219,6 +219,8 @@ public class Player : MonoBehaviour
 
                 isAlive = false;
 
+                manager.soundManager.Play("effect.death");
+
                 manager.uidocs.ShowTitle();
 
                 manager.lastScore = manager.score;

@@ -2,15 +2,15 @@
     <Style src="project://database/Assets/resources/UI/default.uss?fileID=7433441132597879392&amp;guid=dac13ca1f2f6834429a9d7be2254d2fd&amp;type=3#default" />
     <ui:VisualElement name="blindTop" class="blindTop_out" />
     <ui:VisualElement name="blindBottom" class="blindBottom_out" style="position: absolute;" />
-    <ui:VisualElement name="fadePanel" class="fadePanel_out fadePanel_in" style="width: 100%; height: 100%;">
+    <ui:VisualElement name="fadePanel" class="fadePanel_out" style="width: 100%; height: 100%;">
         <ui:VisualElement name="zerOpen" style="position: absolute; top: 0; width: 100%;">
             <ui:VisualElement style="position: absolute; width: 100%; height: 113px; -unity-font-definition: initial; -unity-font: url(&apos;project://database/Assets/resources/dpcomic.ttf?fileID=12800000&amp;guid=4af21f81590af7d4ab8f40add6519a46&amp;type=3#dpcomic&apos;); color: rgb(255, 240, 0); opacity: 0.05; flex-direction: row; rotate: 10deg; top: -31px; left: -40px;">
                 <ui:Label text="zerOpen" display-tooltip-when-elided="true" style="width: 15%; height: 100%; -unity-text-align: middle-center; -unity-font-style: bold; font-size: 60px;" />
                 <ui:Label text="zerOpen" display-tooltip-when-elided="true" style="width: 15%; height: 100%; -unity-text-align: middle-center; -unity-font-style: bold; font-size: 60px;" />
-                <ui:Label text="404" display-tooltip-when-elided="true" style="width: 15%; height: 100%; -unity-text-align: middle-center; -unity-font-style: bold; font-size: 90px; color: rgba(255, 13, 0, 255);" />
+                <ui:Label text="404" display-tooltip-when-elided="true" style="width: 15%; height: 100%; -unity-text-align: middle-center; -unity-font-style: bold; font-size: 90px; color: rgb(255, 13, 0);" />
                 <ui:Label text="zerOpen" display-tooltip-when-elided="true" style="width: 15%; height: 100%; -unity-text-align: middle-center; -unity-font-style: bold; font-size: 60px;" />
                 <ui:Label text="zerOpen" display-tooltip-when-elided="true" style="width: 15%; height: 100%; -unity-text-align: middle-center; -unity-font-style: bold; font-size: 60px;" />
-                <ui:Label text="404" display-tooltip-when-elided="true" style="width: 15%; height: 100%; -unity-text-align: middle-center; -unity-font-style: bold; font-size: 90px; color: rgba(255, 0, 35, 255);" />
+                <ui:Label text="404" display-tooltip-when-elided="true" style="width: 15%; height: 100%; -unity-text-align: middle-center; -unity-font-style: bold; font-size: 90px; color: rgb(255, 0, 35);" />
                 <ui:Label text="zerOpen" display-tooltip-when-elided="true" style="width: 15%; height: 100%; -unity-text-align: middle-center; -unity-font-style: bold; font-size: 60px;" />
             </ui:VisualElement>
             <ui:VisualElement style="position: absolute; width: 100%; height: 113px; -unity-font-definition: initial; -unity-font: url(&apos;project://database/Assets/resources/dpcomic.ttf?fileID=12800000&amp;guid=4af21f81590af7d4ab8f40add6519a46&amp;type=3#dpcomic&apos;); color: rgb(255, 240, 0); opacity: 0.05; flex-direction: row; rotate: 10deg; top: 160px; left: -40px;">
@@ -56,7 +56,7 @@
                 <ui:Label text="zerOpen" display-tooltip-when-elided="true" style="width: 15%; height: 100%; -unity-text-align: middle-center; -unity-font-style: bold; font-size: 60px;" />
                 <ui:Label text="zerOpen" display-tooltip-when-elided="true" style="width: 15%; height: 100%; -unity-text-align: middle-center; -unity-font-style: bold; font-size: 60px;" />
                 <ui:Label text="zerOpen" display-tooltip-when-elided="true" style="width: 15%; height: 100%; -unity-text-align: middle-center; -unity-font-style: bold; font-size: 60px;" />
-                <ui:Label text="saekano" display-tooltip-when-elided="true" style="width: 15%; height: 100%; -unity-text-align: middle-center; -unity-font-style: bold; font-size: 60px; color: rgba(0, 255, 165, 255);" />
+                <ui:Label text="saekano" display-tooltip-when-elided="true" style="width: 15%; height: 100%; -unity-text-align: middle-center; -unity-font-style: bold; font-size: 60px; color: rgb(0, 255, 165);" />
             </ui:VisualElement>
             <ui:VisualElement style="position: absolute; width: 100%; height: 113px; -unity-font-definition: initial; -unity-font: url(&apos;project://database/Assets/resources/dpcomic.ttf?fileID=12800000&amp;guid=4af21f81590af7d4ab8f40add6519a46&amp;type=3#dpcomic&apos;); color: rgb(255, 240, 0); opacity: 0.05; flex-direction: row; rotate: 10deg; top: 1062px; left: -40px;">
                 <ui:Label text="zerOpen" display-tooltip-when-elided="true" style="width: 15%; height: 100%; -unity-text-align: middle-center; -unity-font-style: bold; font-size: 60px;" />
@@ -65,7 +65,7 @@
             <ui:VisualElement style="position: absolute; width: 100%; height: 113px; -unity-font-definition: initial; -unity-font: url(&apos;project://database/Assets/resources/dpcomic.ttf?fileID=12800000&amp;guid=4af21f81590af7d4ab8f40add6519a46&amp;type=3#dpcomic&apos;); color: rgb(255, 240, 0); opacity: 0.05; flex-direction: row; rotate: 10deg; top: -215px; left: -40px;">
                 <ui:Label text="zerOpen" display-tooltip-when-elided="true" style="width: 15%; height: 100%; -unity-text-align: middle-center; -unity-font-style: bold; font-size: 60px;" />
                 <ui:Label text="zerOpen" display-tooltip-when-elided="true" style="width: 15%; height: 100%; -unity-text-align: middle-center; -unity-font-style: bold; font-size: 60px;" />
-                <ui:Label text="oshi no ko" display-tooltip-when-elided="true" style="width: 15%; height: 100%; -unity-text-align: middle-center; -unity-font-style: bold; font-size: 60px; color: rgba(189, 0, 255, 255);" />
+                <ui:Label text="oshi no ko" display-tooltip-when-elided="true" style="width: 15%; height: 100%; -unity-text-align: middle-center; -unity-font-style: bold; font-size: 60px; color: rgb(189, 0, 255);" />
                 <ui:Label text="zerOpen" display-tooltip-when-elided="true" style="width: 15%; height: 100%; -unity-text-align: middle-center; -unity-font-style: bold; font-size: 60px;" />
                 <ui:Label text="zerOpen" display-tooltip-when-elided="true" style="width: 15%; height: 100%; -unity-text-align: middle-center; -unity-font-style: bold; font-size: 60px;" />
                 <ui:Label text="zerOpen" display-tooltip-when-elided="true" style="width: 15%; height: 100%; -unity-text-align: middle-center; -unity-font-style: bold; font-size: 60px;" />
