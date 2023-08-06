@@ -44,17 +44,13 @@ public class Enemy : MonoBehaviour
         if (player_.isAlive) {
             // dir x가 0보다 크다면 Right인 거임
             if (dir.x > 0) {
-                Debug.Log("Right"+" "+transform.position.x+" "+dir.x+"\n"+transform.position.x + dir.x * speed+" "+Right);
                 if (transform.position.x + dir.x * speed * Time.deltaTime < Right) {
-                    Debug.Log("move!");
                     transform.Translate((Vector3) (dir) * speed * Time.deltaTime); //move right
                     transform.localScale = new Vector3(-1, 1, 1); 
                 }
                 else {transform.localScale = new Vector3(1, 1, 1); }
             }else if (dir.x < 0) {
-                Debug.Log("Left"+" "+transform.position.x+" "+dir.x+"\n"+transform.position.x + dir.x * speed +" "+Left);
                 if (transform.position.x + dir.x * speed * Time.deltaTime > Left) {
-                    Debug.Log("move!");
                     transform.Translate((Vector3) (dir) * speed * Time.deltaTime); //move left
                     transform.localScale = new Vector3(1, 1, 1);
                 }
