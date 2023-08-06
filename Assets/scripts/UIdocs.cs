@@ -20,4 +20,26 @@ public class UIdocs : MonoBehaviour
         root.Q<Label>("point").text = manager.score + " score";
         root.Q<Label>("lvscore").text = "." + manager.lv;
     }
+
+    public void LvUp()
+    {
+        StartCoroutine(lvUp());
+    }
+
+    IEnumerator lvUp()
+    {
+        for (float i = 1; i < 1.1; i+=0.01f)
+        {
+            root.Q<Label>("lvscore").transform.scale = new Vector2 (i, i);
+
+            yield return new WaitForSeconds(0.015f);
+        }
+
+        for (float i = 1.1f; i >= 1; i -= 0.01f)
+        {
+            root.Q<Label>("lvscore").transform.scale = new Vector2(i, i);
+
+            yield return new WaitForSeconds(0.015f);
+        }
+    }
 }

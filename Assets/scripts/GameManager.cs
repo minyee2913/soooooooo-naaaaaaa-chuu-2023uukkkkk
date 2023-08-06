@@ -25,14 +25,21 @@ public class GameManager : MonoBehaviour
     public int score = 0;
     public int lv = 1;
     public int xp = 0;
+    public int maxXp = 20;
 
     static public Player player;
+    public UIdocs uidocs;
+    public Vcam vcam;
+
+    public ParticleSystem lvUpParticle;
 
     public GameObject resetPanel;
 
     private void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        uidocs = GameObject.Find("UI").GetComponent<UIdocs>();
+        vcam = GameObject.Find("vcam").GetComponent<Vcam>();
     }
 
     private void Start()
@@ -56,7 +63,7 @@ public class GameManager : MonoBehaviour
         }
 
         //move player to spawn pos
-        player.transform.position = new Vector2(-5, -3.3f);
+        player.transform.position = new Vector2(-5, -2.5f);
         player._Start();
     }
 
@@ -73,8 +80,10 @@ public class GameManager : MonoBehaviour
     public void ResetAccount()
     {
         Cancel();
-        lv=1;
-        score=0;
+        lv = 1;
+        maxXp = 20;
+        xp = 1;
+        score = 0;
         GameStart();
     }
 
@@ -106,6 +115,22 @@ public class GameManager : MonoBehaviour
 
                     spawningDelay = 0;
                 }
+            }
+
+            if (xp >= maxXp)
+            {
+                xp = 0;
+                lv++;
+                maxXp = lv * 20;
+
+                var particle = Instantiate(lvUpParticle, player.transform.position, Quaternion.identity);
+                particle.transform.SetParent(player.transform, false);
+
+                particle.transform.localPosition = Vector2.zero;
+                particle.transform.localScale = new Vector2(0.8f, 0.8f);
+                Destroy(particle.gameObject, 1);
+
+                uidocs.LvUp();
             }
 
             

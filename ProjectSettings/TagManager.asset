@@ -7,6 +7,7 @@ TagManager:
   - enemy
   - ground
   - bullet
+  - FxTemporaire
   layers:
   - Default
   - TransparentFX
@@ -49,6 +50,9 @@ TagManager:
     locked: 0
   - name: player
     uniqueID: 4219805681
+    locked: 0
+  - name: particle
+    uniqueID: 979603253
     locked: 0
   - name: ui
     uniqueID: 1570480913
