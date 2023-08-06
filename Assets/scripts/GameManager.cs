@@ -27,7 +27,7 @@ public class GameManager : MonoBehaviour
     public int xp = 0;
     public int maxXp = 20;
 
-    static public Player player;
+    public static Player player;
     public UIdocs uidocs;
     public Vcam vcam;
 
@@ -53,7 +53,7 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < enemies.Count; i++) {
             var e = enemies[i];
 
-            Debug.Log(e);
+            // Debug.Log(e);
 
             enemies.Remove(e);
 
