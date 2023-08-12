@@ -19,6 +19,7 @@ public class Enemy : MonoBehaviour
     private float shootTimer;
 
     private float Right, Left;
+    
 
     public bool IsAlive;
 
@@ -73,9 +74,14 @@ public class Enemy : MonoBehaviour
             moveUpdate();
             Shoot();
             timerUpdate();
+            GunLook();
         }
     }
 
+
+    private void GunLook() {
+        if(player_.transform.position.x < transform.position.x * dir.x)  transform.localScale = new Vector3(dir.x, 1, 1);
+    }
     public void Kicked()
     {
         IsAlive = false;

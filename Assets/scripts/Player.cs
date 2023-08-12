@@ -131,13 +131,11 @@ public class Player : MonoBehaviour
             else
             {
                 //detect key is pressing (spaceBar)
-                if (Input.GetKeyDown(KeyCode.Space))
-                {
+                if (Input.GetKeyDown(KeyCode.Space)) {
                     //add down force to kick
                     rigid.AddForce(Vector2.down * 15, ForceMode2D.Impulse);
 
-                    if (slowMotion)
-                    {
+                    if (slowMotion) {
                         manager.soundManager.Play("effect.slowOut");
                         if (manager.soundManager._tracks[2].time < 1.3f)
                             manager.soundManager._tracks[2].time = 1.3f;

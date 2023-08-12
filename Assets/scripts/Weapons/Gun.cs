@@ -48,15 +48,16 @@ public class Gun : MonoBehaviour
     }
 
     void LookAt() {
+        
         Vector2 dir =  transform.position - Player.position;
         float angle = Mathf.Atan2(dir.x, dir.y) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.AngleAxis(-angle, Vector3.forward);
         
+        
         // _angle =  Quaternion.AngleAxis(-angle , Vector3.forward);
         // transform.rotation = _angle;
     }
-    public void Attack()
-    {
+    public void Attack() {
         idx %= limit;
         bullets[idx].transform.position = muzzlePos.position;
         bullets[idx].transform.rotation = this.transform.rotation;
@@ -67,8 +68,7 @@ public class Gun : MonoBehaviour
     }
     
 
-    private void OnDestroy()
-    {
+    private void OnDestroy() {
         for(int i = 0; i < bullets.Length; i++) {
             Destroy(bullets[i]);
         }

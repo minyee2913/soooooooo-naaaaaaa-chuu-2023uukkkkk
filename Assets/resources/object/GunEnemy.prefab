@@ -149,6 +149,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 10
   gun: {fileID: 3493695687411952622}
+  IsAlive: 0
 --- !u!1001 &8724105436169682059
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -211,6 +212,10 @@ PrefabInstance:
     - target: {fileID: 5766249417679578012, guid: 24b0ca3a415a0c14cad62b6507e83ec8, type: 3}
       propertyPath: m_LocalScale.y
       value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5766249417679578012, guid: 24b0ca3a415a0c14cad62b6507e83ec8, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5766249417679578012, guid: 24b0ca3a415a0c14cad62b6507e83ec8, type: 3}
       propertyPath: m_LocalRotation.w

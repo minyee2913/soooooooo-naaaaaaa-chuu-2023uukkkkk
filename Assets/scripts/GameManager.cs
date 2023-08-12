@@ -109,7 +109,7 @@ public class GameManager : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Q)) GamePause();
 
             //if enemy count less then 12
-            if (enemies.Count < 12)
+            if (enemies.Count < 1)
             {
                 //count spawning delay regardless of update cycle;
                 spawningDelay += Time.deltaTime;
