@@ -138,8 +138,7 @@ public class Player : MonoBehaviour
             else
             {
                 //detect key is pressing (spaceBar)
-                if (Input.GetKeyDown(KeyCode.Space))
-                {
+                if (Input.GetKeyDown(KeyCode.Space)) {
                     //add down force to kick
                     rigid.AddForce(Vector2.down * 15, ForceMode2D.Impulse);
 
