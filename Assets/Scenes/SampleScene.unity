@@ -2914,6 +2914,8 @@ MonoBehaviour:
   slowSoundOut: 0
   crashParticle1: {fileID: 19800004, guid: f95ff734540a0d749be6571b6cb5b37f, type: 3}
   crashParticle2: {fileID: 19800000, guid: f06e78284f831ae469c74624ab5d513b, type: 3}
+  flow: {fileID: 21300000, guid: e121739c340587b4bae9dc459e7870a4, type: 3}
+  strike: {fileID: 21300000, guid: b4a396e26d9bb664cb109fa582cccd5e, type: 3}
   slowTimeBar: {fileID: 984100637}
 --- !u!212 &1947662719
 SpriteRenderer:

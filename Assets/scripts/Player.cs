@@ -23,6 +23,10 @@ public class Player : MonoBehaviour
     public ParticleSystem crashParticle1;
     public ParticleSystem crashParticle2;
 
+    public Sprite flow;
+    public Sprite strike;
+    private SpriteRenderer _renderer;
+
     public Slider slowTimeBar;
 
     float slowTime = 0;
@@ -31,6 +35,7 @@ public class Player : MonoBehaviour
     {
         rigid = GetComponent<Rigidbody2D>();
         manager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        _renderer = GetComponent<SpriteRenderer>();
     }
 
     public void _Start()
@@ -89,6 +94,8 @@ public class Player : MonoBehaviour
 
                 transform.position = new Vector2(transform.position.x, 2.4f);
 
+                _renderer.sprite = flow;
+
                 manager.soundManager.Play("effect.slowIn");
                 slowTime = 0;
                 slowMotion = true;
@@ -135,6 +142,8 @@ public class Player : MonoBehaviour
                 {
                     //add down force to kick
                     rigid.AddForce(Vector2.down * 15, ForceMode2D.Impulse);
+
+                    _renderer.sprite = strike;
 
                     if (slowMotion)
                     {

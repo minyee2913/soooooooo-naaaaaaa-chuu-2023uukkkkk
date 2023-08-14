@@ -14,6 +14,7 @@ public class Enemy : MonoBehaviour
     private Vector2 dir;
 
     [SerializeField] public Gun gun;
+    private Animator animator_;
 
     private float shootDelay;
     private float shootTimer;
@@ -24,6 +25,7 @@ public class Enemy : MonoBehaviour
 
     private void Awake() {
         
+        animator_ = GetComponent<Animator>();
         player_ = GameManager.player;
         
         //randomize followMin & posDiffer per enemy
@@ -47,10 +49,14 @@ public class Enemy : MonoBehaviour
     {
         if (player_.isAlive && IsAlive) {
             // dir x가 0보다 크다면 Right인 거임
+
+            bool moved = false;
             if (dir.x > 0) {
                 if (transform.position.x + dir.x * speed * Time.deltaTime < Right) {
                     transform.Translate((Vector3) (dir) * speed * Time.deltaTime); //move right
-                    transform.localScale = new Vector3(-1, 1, 1); 
+                    transform.localScale = new Vector3(-1, 1, 1);
+
+                    moved = true;
                 }
                 else {
                     transform.localScale = new Vector3(1, 1, 1);
@@ -60,12 +66,16 @@ public class Enemy : MonoBehaviour
                 if (transform.position.x + dir.x * speed * Time.deltaTime > Left) {
                     transform.Translate((Vector3) (dir) * speed * Time.deltaTime); //move left
                     transform.localScale = new Vector3(1, 1, 1);
+
+                    moved = true;
                 }
                 else {
                     transform.localScale = new Vector3(-1, 1, 1);
                 }
 
             }
+
+            animator_.SetBool("isMoving", moved);
 
             if (transform.position.x < -6) transform.position = new Vector2(-6, transform.position.y);
             else if (transform.position.x > 7) transform.position = new Vector2(7, transform.position.y);
