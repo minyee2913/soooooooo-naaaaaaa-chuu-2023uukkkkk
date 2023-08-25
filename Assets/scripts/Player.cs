@@ -103,23 +103,11 @@ public class Player : MonoBehaviour
                 slowTimeBar.gameObject.SetActive(true);
             }
 
-            //if input is right
 
-            float appliedSpeed = moveSpeed;
-            if (slowMotion) appliedSpeed += 8;
-
-            if (i > 0f)
-            {
-                transform.position = new Vector2(transform.position.x + appliedSpeed * Time.deltaTime, transform.position.y);
-            }
-            //if input is left
-            else if (i < 0f)
-            {
-                transform.position = new Vector2(transform.position.x + -appliedSpeed * Time.deltaTime, transform.position.y);
-            }
-
-            if (transform.position.x < -7) transform.position = new Vector2(-7, transform.position.y);
-            else if (transform.position.x > 8) transform.position = new Vector2(8, transform.position.y);
+            //{
+            //  YOU CAN DO IT (itch)
+            //      GUYS
+            //}
 
             if (isJumping)
             {
@@ -139,21 +127,12 @@ public class Player : MonoBehaviour
             {
                 //detect key is pressing (spaceBar)
                 if (Input.GetKeyDown(KeyCode.Space)) {
-                    //add down force to kick
-                    rigid.AddForce(Vector2.down * 15, ForceMode2D.Impulse);
-
                     _renderer.sprite = strike;
 
-                    if (slowMotion)
-                    {
-                        manager.soundManager.Play("effect.slowOut");
-                        if (manager.soundManager._tracks[2].time < 1.3f)
-                            manager.soundManager._tracks[2].time = 1.3f;
-
-                        slowMotion = false;
-                        manager.vcam.SlowOut();
-                        slowTimeBar.gameObject.SetActive(false);
-                    }
+                    //{
+                    //  YOU CAN DO IT (nee)
+                    //      GUYS
+                    //}
                 }
             }
 
@@ -195,47 +174,10 @@ public class Player : MonoBehaviour
     {
         switch (collision.transform.tag)
         {
-            case "enemy":
-                if (!isJumping) {
-                    var enemy = collision.transform.GetComponent<Enemy>();
-                    manager.enemies.Remove(enemy);
-
-                    enemy.Kicked();
-                    Destroy(collision.transform.gameObject, 0.3f);
-
-                    var particle1 = Instantiate(crashParticle1, transform.position + new Vector3(0, -0.5f), Quaternion.identity);
-                    Destroy(particle1.gameObject, 1);
-
-                    var particle2 = Instantiate(crashParticle2, transform.position + new Vector3(0, -0.5f), Quaternion.identity);
-                    Destroy(particle2.gameObject, 1);
-
-                    manager.soundManager.Play("effect.kick");
-
-                    Jump();
-
-                    manager.score += 10;
-                    manager.xp += 5;
-                }
-                break;
-            case "bullet":
-
-            case "ground":
-                rigid.freezeRotation = true;
-                rigid.velocity = Vector2.zero;
-
-                rigid.gravityScale = 0;
-
-                isAlive = false;
-
-                manager.soundManager.Play("effect.death");
-
-                manager.uidocs.ShowTitle();
-
-                manager.lastScore = manager.score;
-                if (manager.score > PlayerPrefs.GetInt("bestScore")) PlayerPrefs.SetInt("bestScore", manager.score);
-
-                break;
-                    
+            //{
+            //  YOU CAN DO IT (sang)
+            //      GUYS
+            //}
         }
     }
 }
